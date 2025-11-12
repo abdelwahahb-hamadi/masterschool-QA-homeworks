@@ -13,7 +13,6 @@
 - Click “Submit”.  
 **Expected Result:** Rating is saved and visible under the product.  
 **Test Design Technique:** Positive Scenario.  
-**Automatable:** Yes – can be automated using Selenium.
 
 **Test Case 2**  
 **Objective:** Verify that guest users cannot submit ratings.  
@@ -23,7 +22,6 @@
 - Try to rate the product.  
 **Expected Result:** System prompts the user to log in before submitting a rating.  
 **Test Design Technique:** Negative Scenario.  
-**Automatable:** Yes – basic UI automation possible.
 
 **Test Case 3**  
 **Objective:** Verify that ratings update the average score correctly.  
@@ -32,7 +30,6 @@
 - Submit a new rating.  
 **Expected Result:** Average rating value updates accordingly.  
 **Test Design Technique:** Boundary/Calculation Validation.  
-**Automatable:** Yes – can check values programmatically.
 
 ---
 
@@ -45,7 +42,6 @@
 - Go to “Alcoholic Products” category.  
 **Expected Result:** Age verification modal appears asking for confirmation.  
 **Test Design Technique:** UI Validation.  
-**Automatable:** Yes.
 
 **Test Case 2**  
 **Objective:** Verify that users under 18 cannot access the category.  
@@ -55,7 +51,6 @@
 - Click “Confirm”.  
 **Expected Result:** Access is denied and user remains on the same page.  
 **Test Design Technique:** Boundary Value (Age = 17).  
-**Automatable:** Yes – edge case check.
 
 **Test Case 3**  
 **Objective:** Verify that the verification persists during the session.  
@@ -64,7 +59,6 @@
 - Navigate to a non-alcoholic category, then back to Alcohol.  
 **Expected Result:** User is not asked again within the same session.  
 **Test Design Technique:** Session Persistence Check.  
-**Automatable:** Possible but optional.
 
 ---
 
@@ -78,7 +72,6 @@
 - Proceed to checkout.  
 **Expected Result:** Shipping cost = 0€.  
 **Test Design Technique:** Boundary Value (just above threshold).  
-**Automatable:** Yes.
 
 **Test Case 2**  
 **Objective:** Verify shipping fee is applied when total below threshold.  
@@ -88,7 +81,6 @@
 - Proceed to checkout.  
 **Expected Result:** Shipping cost added correctly.  
 **Test Design Technique:** Boundary Value (just below threshold).  
-**Automatable:** Yes.
 
 **Test Case 3**  
 **Objective:** Verify message “Spend X more for free shipping” appears when total is below threshold.  
@@ -97,4 +89,3 @@
 - View basket page.  
 **Expected Result:** Message displays the remaining amount to reach free shipping.  
 **Test Design Technique:** UI Validation.  
-**Automatable:** Yes.
