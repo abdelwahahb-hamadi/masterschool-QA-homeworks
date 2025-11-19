@@ -59,5 +59,3 @@ Orders above a specific amount should receive free shipping. Orders below this t
 
 ### Detailed Requirement:
 Free shipping applies only when the final payable amount (after discounts) is equal to or above the defined threshold.  
-Orders below this threshold should automatically include a standard shipping fee.  
-If an item is returned and the total falls below the threshold, the system must recalculate and charge shipping where applicable.
