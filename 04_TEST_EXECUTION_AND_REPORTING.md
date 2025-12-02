@@ -1,111 +1,88 @@
-# Test Execution & Reporting – MarketMate Webshop
+# TEST_EXECUTION_AND_REPORTING – Market Mate Webshop
 
-This document includes the executed test scenarios and bugs found during testing of:
-- Age Verification
-- Product Rating System
-- Shipping Cost Logic
-
-Each bug is documented using the Masterschool table format.
+Below are the test execution tables and bug lists for the new features:
+Age Verification, Product Rating, and Shipping Fee Logic.
 
 ---
 
----
-
-## 🐞 Bug 1 – Comment Not Showing on First Review
+## 1. Age Verification – Test Execution
 
 ### Scenario  
-As a user, when I submit a rating with a comment for the first time, the comment should appear under the product.
+As a user, I should only be able to access alcohol products if my age is 18 or above.
 
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|-----|----------------|
-| 1 | Login as valid user | User logged in | OK |  |  |
-| 2 | Purchase product | Product appears in order history | OK |  |  |
-| 3 | Open purchased product page | Review section visible | OK |  |  |
-| 4 | Add rating + comment | Comment + stars should show in preview | OK |  |  |
-| 5 | Submit review | Comment should appear under product | NOK |  |  |
+### Test Scenario – Invalid Age Inputs (with bugs)
+
+| Step# | Action                                       | Expected Outcome                                                                 | OK/NOK | URL              | Link to issue |
+|------:|----------------------------------------------|----------------------------------------------------------------------------------|:------:|------------------|---------------|
+| 1     | Open website                                 | Homepage loads                                                                   |  OK    | `/`              |               |
+| 2     | Try to access **Alcohol** category           | Age verification popup appears                                                   |  OK    | `/alcohol`       |               |
+| 3a    | Leave age field **empty**                    | Should show specific error message like “Age is required”                        | **NOK** |                  | `BUG-AGE-01`  |
+| 3b    | Enter invalid text `"abc"` as birth date     | Should show “Invalid date format”                                                | **NOK** |                  | `BUG-AGE-01`  |
+| 3c    | Enter valid but **underage** date (17 years) | Should show “You must be 18+” and block access                                  |  OK    |                  |               |
+| 3d    | Enter valid **18+** birth date               | Should allow access to alcohol products                                          |  OK    |                  |               |
+| 4     | Browse normal products as underage user      | Warning should NOT appear outside alcohol category                               | **NOK** | `/shop`          | `BUG-AGE-02`  |
+
+### Age Verification – Bug List
+
+| Bug ID     | Description                                                                                       | Severity |
+|-----------|---------------------------------------------------------------------------------------------------|---------|
+| BUG-AGE-01 | Same “underage” error message is used for **all** invalid inputs (empty, text, bad format, under 18) | Medium  |
+| BUG-AGE-02 | Under-age warning appears even when browsing **non-alcohol** products                              | High    |
 
 ---
 
-## 🐞 Bug 2 – Add Review vs Edit Review Validation Mismatch
+## 2. Product Rating – Test Execution
 
 ### Scenario  
-Add Review blocks inputs over 500 characters, Edit Review accepts unlimited text.
+As a logged-in user who bought a product, I should be able to add a rating and a comment.
 
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|-----|----------------|
-| 1 | Open product page | Review form visible | OK |  |  |
-| 2 | Click “Add Review” | Add modal opens | OK |  |  |
-| 3 | Enter 600 chars | Should show validation error | OK |  |  |
-| 4 | Save review | Review should save with max 500 chars | OK |  |  |
-| 5 | Click “Edit Review” | Edit modal opens | OK |  |  |
-| 6 | Enter 600 chars | Should block long text | NOK |  |  |
+### Test Scenario – Add & Edit Review (with bugs)
+
+| Step# | Action                                              | Expected Outcome                                                              | OK/NOK | URL           | Link to issue |
+|------:|-----------------------------------------------------|-------------------------------------------------------------------------------|:------:|---------------|---------------|
+| 1     | Login                                               | User is logged in                                                             |  OK    | `/login`      |               |
+| 2     | Buy a product                                       | Order completed successfully                                                  |  OK    | `/checkout`   |               |
+| 3     | Open the product details page                       | Rating section and “Add a comment” form are visible                           |  OK    | `/product/ID` |               |
+| 4a    | Add 5 stars + a text comment (first review)         | Stars and comment should both appear under reviews                            | **NOK** |               | `BUG-RATE-01` |
+| 4b    | In **Add Review**, enter comment > 500 characters   | Input should be rejected or blocked with clear validation message             |  OK    |               |               |
+| 5a    | Open **Edit Review** for existing rating            | Form opens with current stars and comment                                     |  OK    |               |               |
+| 5b    | In **Edit Review**, enter very long comment (>500)  | Should follow same 500-char rule as Add Review                                | **NOK** |               | `BUG-RATE-02` |
+
+### Product Rating – Bug List
+
+| Bug ID      | Description                                                                                         | Severity |
+|------------|-----------------------------------------------------------------------------------------------------|---------|
+| BUG-RATE-01 | First-time **Add Review** saves only stars; the comment text is not shown on the product page        | High    |
+| BUG-RATE-02 | **Edit Review** accepts long comments with no limit, while Add Review is limited to 500 characters   | Medium  |
 
 ---
 
-## 🐞 Bug 3 – Shipping Fee Does Not Return When Cart < 20€
+## 3. Shipping Fee Logic – Test Execution
 
 ### Scenario  
-Shipping should become paid again when cart drops below 20€, but it doesn't.
+As a user, shipping should be free only when the cart total is **20€ or more**.  
+If the cart total is below 20€, a shipping fee should be added.
 
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|-----|----------------|
-| 1 | Add items ≥ 20€ | Shipping becomes free | OK |  |  |
-| 2 | Remove items until < 20€ | Shipping fee should reappear | NOK |  |  |
+### Test Scenario – Shipping Recalculation (with bug)
 
----
+| Step# | Action                                         | Expected Outcome                                                | OK/NOK | URL      | Link to issue |
+|------:|------------------------------------------------|-----------------------------------------------------------------|:------:|----------|---------------|
+| 1     | Add items until cart total = **19.99€**        | Shipping fee (e.g. 5€) is shown                                |  OK    | `/cart`  |               |
+| 2     | Add more items to reach **≥ 20€**              | Shipping fee is removed – order qualifies for free shipping     |  OK    | `/cart`  |               |
+| 3     | Remove items so total goes back **below 20€**  | Shipping fee should appear again                                | **NOK** | `/cart` | `BUG-SHIP-01` |
 
-## 🐞 Bug 4 – Same Error Message for All Age Input Cases
+### Shipping – Bug List
 
-### Scenario  
-All invalid inputs show the same under-age message.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|-----|----------------|
-| 1 | Open age popup | Popup visible | OK |  |  |
-| 2 | Leave age empty | “Age required” | NOK |  |  |
-| 3 | Enter “abc” | “Invalid format” | NOK |  |  |
-| 4 | Enter <18 | “You must be 18+” | OK |  |  |
-| 5 | Enter age >120 | “Invalid age” | NOK |  |  |
+| Bug ID       | Description                                                                      | Severity |
+|-------------|----------------------------------------------------------------------------------|---------|
+| BUG-SHIP-01 | After free shipping is applied once (≥ 20€), removing items below 20€ **does not bring back** the shipping fee | High    |
 
 ---
 
-## 🐞 Bug 5 – Rating Only Possible After Purchase (Unclear Requirement)
+## 4. Overall Test Summary
 
-### Scenario  
-System blocks rating unless product is purchased, but requirement does not state this.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|-----|----------------|
-| 1 | Login as user | Logged in | OK |  |  |
-| 2 | Open product page | Rating option visible | Expected: Visible |  |  |
-| 3 | Try to rate | Should allow rating | NOK |  |  |
-
----
-
-## 🐞 Bug 6 – Long Comments Accepted Only In Edit Mode
-
-### Scenario  
-Add Review rejects long text, Edit Review accepts it.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|-----|----------------|
-| 1 | Open Add Review | Modal opens | OK |  |  |
-| 2 | Enter 600 chars | Should show error | OK |  |  |
-| 3 | Submit | Should not save | OK |  |  |
-| 4 | Open Edit Review | Modal opens | OK |  |  |
-| 5 | Enter 600 chars | Should show error | NOK |  |  |
-
----
-
-## 🐞 Bug 7 – Under-Age Warning Appears On Non-Alcohol Products
-
-### Scenario  
-Warning popup appears even when browsing non-alcohol products.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|-----|----------------|
-| 1 | Login as under-18 user | Login successful | OK |  |  |
-| 2 | Open non-alcohol product | No popup should appear | NOK |  |  |
-| 3 | Open alcohol product | Popup should appear | OK |  |  |
-
----
+| Area              | Result                                    | Notes                                              |
+|-------------------|-------------------------------------------|----------------------------------------------------|
+| Age Verification  | Partially working, 2 bugs found           | Same error for all cases, warning shows too often |
+| Product Rating    | Core flow works but inconsistent behavior | Comment not saved first time, Edit rules differ   |
+| Shipping Logic    | Threshold logic partly works, 1 bug found | Fee not restored after cart drops below 20€       |
