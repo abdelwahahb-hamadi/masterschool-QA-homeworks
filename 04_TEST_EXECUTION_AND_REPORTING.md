@@ -1,6 +1,6 @@
 # Test Execution & Reporting – MarketMate Webshop
 
-Below are the executed test scenarios and bugs found during testing of:
+This document contains the executed test scenarios and bugs found during testing of:
 - Product Rating System
 - Age Verification
 - Shipping Cost Logic
@@ -9,7 +9,7 @@ All scenarios follow the Masterschool test execution table format.
 
 ---
 
-# 🐞 Bug 1 – Comment does not show on first review
+# Bug 1 – Comment does not show on first review
 
 Scenario: When submitting a rating with a comment for the first time, the comment does not appear on the product page.
 
@@ -22,7 +22,7 @@ Scenario: When submitting a rating with a comment for the first time, the commen
 
 ---
 
-# 🐞 Bug 2 – Add Review and Edit Review have different validation rules
+# Bug 2 – Add Review and Edit Review have different validation rules
 
 Scenario: Add Review has a 500-character limit, while Edit Review accepts unlimited characters.
 
@@ -37,7 +37,7 @@ Scenario: Add Review has a 500-character limit, while Edit Review accepts unlimi
 
 ---
 
-# 🐞 Bug 3 – Shipping fee does not return when cart total drops below 20€
+# Bug 3 – Shipping fee does not return when cart total drops below 20€
 
 Scenario: Shipping becomes free at ≥20€, but shipping fee does not return when cart total goes below 20€.
 
@@ -48,7 +48,7 @@ Scenario: Shipping becomes free at ≥20€, but shipping fee does not return wh
 
 ---
 
-# 🐞 Bug 4 – Same error message for all invalid age inputs
+# Bug 4 – Same error message for all invalid age inputs
 
 Scenario: All invalid age inputs show the same underage message.
 
@@ -62,9 +62,9 @@ Scenario: All invalid age inputs show the same underage message.
 
 ---
 
-# 🐞 Bug 5 – Rating only possible after purchase (requirement unclear)
+# Bug 5 – Rating only possible after purchase (requirement unclear)
 
-Scenario: Users cannot rate products unless they have purchased them, but requirement does not mention this limitation.
+Scenario: Users cannot rate products unless they have purchased them, but the requirement does not mention this limitation.
 
 | Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
 |-------|---------|------------------|--------|------|----------------|
@@ -74,7 +74,7 @@ Scenario: Users cannot rate products unless they have purchased them, but requir
 
 ---
 
-# 🐞 Bug 6 – Long comments accepted only in Edit mode
+# Bug 6 – Long comments accepted only in Edit mode
 
 Scenario: Add Review rejects long comments, but Edit Review accepts them.
 
@@ -89,7 +89,7 @@ Scenario: Add Review rejects long comments, but Edit Review accepts them.
 
 ---
 
-# 🐞 Bug 7 – Under-age warning appears on non-alcohol products
+# Bug 7 – Under-age warning appears on non-alcohol products
 
 Scenario: Under-age popup appears even when browsing non-alcohol categories.
 
@@ -98,11 +98,3 @@ Scenario: Under-age popup appears even when browsing non-alcohol categories.
 | 1 | Login as under-18 user | Login successful | OK |  |  |
 | 2 | Browse non-alcohol products | No age popup should appear | NOK (popup appears anyway) |  |  |
 | 3 | Browse alcohol products | Age popup should appear | OK |  |  |
-
----
-
-# Test Summary
-
-Multiple issues were identified across the new features.  
-Most bugs involve inconsistent validation, missing logic updates, or unclear requirements.  
-Further refinement and developer fixes are required before release.
