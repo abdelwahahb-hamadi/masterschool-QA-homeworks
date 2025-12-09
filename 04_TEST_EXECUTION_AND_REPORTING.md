@@ -27,8 +27,8 @@ As a user of MarketMate, I want to submit a review containing a rating and a com
 | 1 | Open a purchased product page | Review section is visible | OK | https://grocerymate.masterschool.com/product/XYZ | |
 | 2 | Click “Add Review” | Review modal appears | OK | | |
 | 3 | Write comment + select rating | Form accepts valid input | OK | | |
-| 4 | Click “Submit” | Review should appear immediately (rating + comment) | NOK | | https://github.com/…/issues/1 |
-| 5 | Refresh the page | Comment still not visible (bug) | NOK | | https://github.com/…/issues/1 |
+| 4 | Click “Submit” | Review should appear immediately (rating + comment) | NOK | | [https://github.com/…/issues/1](https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1) |
+| 5 | Refresh the page | Comment still not visible (bug) | NOK | | [https://github.com/…/issues/1](https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1) |
 
 ### Screenshots
 - Screenshot: Add Review modal before submitting
