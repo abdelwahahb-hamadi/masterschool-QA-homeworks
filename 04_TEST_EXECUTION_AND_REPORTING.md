@@ -1,100 +1,40 @@
-# Test Execution & Reporting – MarketMate Webshop
+# Scenario 1: Successful Login
 
-This document contains the executed test scenarios and bugs found during testing of:
-- Product Rating System
-- Age Verification
-- Shipping Cost Logic
-
-All scenarios follow the Masterschool test execution table format.
-
----
-
-# Bug 1 – Comment does not show on first review
-
-Scenario: When submitting a rating with a comment for the first time, the comment does not appear on the product page.
+As a user of MarketMate, I want to log in successfully so I can access my account.
 
 | Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|-------|---------|------------------|--------|------|----------------|
-| 1 | Login to the website | User successfully logged in | OK |  |  |
-| 2 | Purchase a product | Product appears in order history | OK |  |  |
-| 3 | Open the purchased product page | Review option available | OK |  |  |
-| 4 | Add rating + comment | Comment and rating should appear after submit | NOK (only rating appears) |  |  |
+|------|--------|------------------|--------|------|----------------|
+| 1 | Go to the login page | Login page loads correctly | OK | https://grocerymate.masterschool.com/login | |
+| 2 | Enter valid email and password | Fields accept the input | OK | | |
+| 3 | Click “Login” | User is redirected to the homepage | OK | https://grocerymate.masterschool.com/ | |
+| 4 | Verify login success | User can see account menu and products page | OK | | |
 
----
+### Screenshots
+- Screenshot 1: Login form
+- <img width="1417" height="620" alt="Screenshot 2025-12-09 at 4 00 58 PM" src="https://github.com/user-attachments/assets/6938ea33-e291-4235-a36a-bf4aec53e2a7" />
 
-# Bug 2 – Add Review and Edit Review have different validation rules
+- Screenshot 2: Logged-in homepage
 
-Scenario: Add Review has a 500-character limit, while Edit Review accepts unlimited characters.
+- <img width="1426" height="628" alt="Screenshot 2025-12-09 at 4 01 35 PM" src="https://github.com/user-attachments/assets/65c3d47e-cb2c-4084-91be-bc85fc8bb8e3" />
 
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|-------|---------|------------------|--------|------|----------------|
-| 1 | Open product page | Review section visible | OK |  |  |
-| 2 | Click “Add Review” | Add Review modal appears | OK |  |  |
-| 3 | Enter more than 500 characters | System should show validation error | OK |  |  |
-| 4 | Submit the review | Review should not save with >500 characters | OK |  |  |
-| 5 | Click “Edit Review” | Edit Review modal appears | OK |  |  |
-| 6 | Enter more than 500 characters | System should show validation error | NOK (system accepts long text) |  |  |
 
----
+- # Scenario 2: Add Review – Submit Rating + Comment
 
-# Bug 3 – Shipping fee does not return when cart total drops below 20€
-
-Scenario: Shipping becomes free at ≥20€, but shipping fee does not return when cart total goes below 20€.
+As a user of MarketMate, I want to submit a review containing a rating and a comment on a product page.
 
 | Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|-------|---------|------------------|--------|------|----------------|
-| 1 | Add items totaling 20€ or more | Shipping becomes free | OK |  |  |
-| 2 | Remove items until total is below 20€ | Shipping fee should appear again | NOK (shipping remains free) |  |  |
+|------|---------|------------------|--------|------|----------------|
+| 1 | Open a purchased product page | Review section is visible | OK | https://grocerymate.masterschool.com/product/XYZ | |
+| 2 | Click “Add Review” | Review modal appears | OK | | |
+| 3 | Write comment + select rating | Form accepts valid input | OK | | |
+| 4 | Click “Submit” | Review should appear immediately (rating + comment) | NOK | | https://github.com/…/issues/1 |
+| 5 | Refresh the page | Comment still not visible (bug) | NOK | | https://github.com/…/issues/1 |
 
----
+### Screenshots
+- Screenshot: Add Review modal before submitting
+- <img width="1284" height="661" alt="Screenshot 2025-12-09 at 2 56 01 PM" src="https://github.com/user-attachments/assets/1f2f287d-ea61-42c7-8da6-d8a939cca2e9" />
 
-# Bug 4 – Same error message for all invalid age inputs
 
-Scenario: All invalid age inputs show the same underage message.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|-------|---------|------------------|--------|------|----------------|
-| 1 | Open homepage | Age verification popup appears | OK |  |  |
-| 2 | Leave age field empty and click Confirm | Should show: "Age is required" | NOK |  |  |
-| 3 | Enter “abc” as age and click Confirm | Should show: "Invalid age format" | NOK |  |  |
-| 4 | Enter age below 18 (e.g., 17) | Underage message should appear | OK |  |  |
-| 5 | Enter unrealistic age (e.g., 200) | Should show: "Invalid age" | NOK |  |  |
-
----
-
-# Bug 5 – Rating only possible after purchase (requirement unclear)
-
-Scenario: Users cannot rate products unless they have purchased them, but the requirement does not mention this limitation.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|-------|---------|------------------|--------|------|----------------|
-| 1 | Login as a regular user | User logged in successfully | OK |  |  |
-| 2 | Open any product page | Rating option should be available | Expected: OK |  |  |
-| 3 | Try to submit a rating | System should accept rating | NOK (rating blocked unless purchased) |  |  |
-
----
-
-# Bug 6 – Long comments accepted only in Edit mode
-
-Scenario: Add Review rejects long comments, but Edit Review accepts them.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|-------|---------|------------------|--------|------|----------------|
-| 1 | Open product page | Review options visible | OK |  |  |
-| 2 | Click “Add Review” | Add Review modal appears | OK |  |  |
-| 3 | Enter more than 500 characters | Should show validation error | OK |  |  |
-| 4 | Submit the review | Should not save long comment | OK |  |  |
-| 5 | Click “Edit Review” | Edit Review modal appears | OK |  |  |
-| 6 | Enter more than 500 characters | Should show validation error | NOK (system accepts long text) |  |  |
-
----
-
-# Bug 7 – Under-age warning appears on non-alcohol products
-
-Scenario: Under-age popup appears even when browsing non-alcohol categories.
-
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|-------|---------|------------------|--------|------|----------------|
-| 1 | Login as under-18 user | Login successful | OK |  |  |
-| 2 | Browse non-alcohol products | No age popup should appear | NOK (popup appears anyway) |  |  |
-| 3 | Browse alcohol products | Age popup should appear | OK |  |  |
+- Screenshot: Rating appears but comment missing
+- <img width="1387" height="465" alt="Screenshot 2025-12-09 at 2 57 46 PM" src="https://github.com/user-attachments/assets/33aa52e3-63e6-4d6d-b6a6-9ff98a274856" />
+ 
