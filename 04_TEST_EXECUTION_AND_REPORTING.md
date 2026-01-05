@@ -1,40 +1,43 @@
-# Scenario 1: Successful Login
+# Test Execution – MarketMate 
 
-As a user of MarketMate, I want to log in successfully so I can access my account.
+This document contains executed test scenarios for the 3 new features:
+1) Product Rating System
+2) Age Verification for Alcoholic Products
+3) Shipping Cost Changes
 
-| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|--------|------------------|--------|------|----------------|
-| 1 | Go to the login page | Login page loads correctly | OK | https://grocerymate.masterschool.com/login | |
-| 2 | Enter valid email and password | Fields accept the input | OK | | |
-| 3 | Click “Login” | User is redirected to the homepage | OK | https://grocerymate.masterschool.com/ | |
-| 4 | Verify login success | User can see account menu and products page | OK | | |
+---
 
-### Screenshots
-- Screenshot 1: Login form
-- <img width="1417" height="620" alt="Screenshot 2025-12-09 at 4 00 58 PM" src="https://github.com/user-attachments/assets/6938ea33-e291-4235-a36a-bf4aec53e2a7" />
+# Scenario 1: Product Rating – Submit Rating + Comment
 
-- Screenshot 2: Logged-in homepage
-
-- <img width="1426" height="628" alt="Screenshot 2025-12-09 at 4 01 35 PM" src="https://github.com/user-attachments/assets/65c3d47e-cb2c-4084-91be-bc85fc8bb8e3" />
-
-
-- # Scenario 2: Add Review – Submit Rating + Comment
-
-As a user of MarketMate, I want to submit a review containing a rating and a comment on a product page.
+As a user of MarketMate, I want to submit a review (rating + written comment) for a product.
 
 | Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
-|------|---------|------------------|--------|------|----------------|
-| 1 | Open a purchased product page | Review section is visible | OK | https://grocerymate.masterschool.com/product/XYZ | |
-| 2 | Click “Add Review” | Review modal appears | OK | | |
-| 3 | Write comment + select rating | Form accepts valid input | OK | | |
-| 4 | Click “Submit” | Review should appear immediately (rating + comment) | NOK | | [https://github.com/…/issues/1](https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1) |
-| 5 | Refresh the page | Comment still not visible (bug) | NOK | | [https://github.com/…/issues/1](https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1) |
+|------|--------|------------------|--------|-----|---------------|
+| 1 | Login and open a product page that allows reviews | Review section is visible | OK | https://grocerymate.masterschool.com/product/XYZ | |
+| 2 | Click “Add Review” | Review modal appears | OK |  | |
+| 3 | Select a rating (e.g., 5 stars) and write a short comment | Form accepts valid input | OK |  | |
+| 4 | Click “Submit” | Review appears immediately (rating + comment) | NOK |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1 |
 
-### Screenshots
-- Screenshot: Add Review modal before submitting
-- <img width="1284" height="661" alt="Screenshot 2025-12-09 at 2 56 01 PM" src="https://github.com/user-attachments/assets/1f2f287d-ea61-42c7-8da6-d8a939cca2e9" />
+---
 
+# Scenario 2: Age Verification – Access Alcohol Category
 
-- Screenshot: Rating appears but comment missing
-- <img width="1387" height="465" alt="Screenshot 2025-12-09 at 2 57 46 PM" src="https://github.com/user-attachments/assets/33aa52e3-63e6-4d6d-b6a6-9ff98a274856" />
- 
+As a user of MarketMate, I must confirm I am 18+ before accessing alcoholic products.
+
+| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
+|------|--------|------------------|--------|-----|---------------|
+| 1 | Navigate to Alcohol category | Age verification modal appears | OK | https://grocerymate.masterschool.com/alcohol | |
+| 2 | Enter a birthdate that makes the user 18+ (e.g., 20-12-1988) and confirm | User can access alcoholic products | OK |  | |
+| 3 | Clear cookies / reset and enter a birthdate that makes the user under 18 (e.g., 20-12-2014) | User is blocked from alcohol products | OK |  | |
+
+---
+
+# Scenario 3: Shipping Cost – Free Shipping Threshold (20€)
+
+As a user of MarketMate, shipping should be free for orders ≥ 20€, and a fee should apply for orders < 20€.
+
+| Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
+|------|--------|------------------|--------|-----|---------------|
+| 1 | Add items to cart until total is 19.99€ | Shipping fee is applied | OK | https://grocerymate.masterschool.com/cart | |
+| 2 | Add one more item so total becomes 20.00€ or more | Shipping becomes free | OK |  | |
+| 3 | Remove items so total drops below 20€ again | Shipping fee should be applied again | NOK |  | (add issue link if you created one) |
