@@ -40,4 +40,4 @@ As a user of MarketMate, shipping should be free for orders ≥ 20€, and a fee
 |------|--------|------------------|--------|-----|---------------|
 | 1 | Add items to cart until total is 19.99€ | Shipping fee is applied | OK | https://grocerymate.masterschool.com/cart | |
 | 2 | Add one more item so total becomes 20.00€ or more | Shipping becomes free | OK |  | |
-| 3 | Remove items so total drops below 20€ again | Shipping fee should be applied again | NOK |  | (add issue link if you created one) |
+| 3 | Remove items so total drops below 20€ again | Shipping fee should be applied again | NOK |  |  |
