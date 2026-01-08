@@ -1,43 +1,51 @@
-# Test Execution – MarketMate 
+# Test Execution – MarketMate (Based on Test Case Design)
 
-This document contains executed test scenarios for the 3 new features:
+This document records the execution results of the test cases designed for the 3 new features:
 1) Product Rating System
 2) Age Verification for Alcoholic Products
 3) Shipping Cost Changes
 
 ---
 
-# Scenario 1: Product Rating – Submit Rating + Comment
-
-As a user of MarketMate, I want to submit a review (rating + written comment) for a product.
+# Feature 1: Product Rating System – Test Execution
 
 | Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
 |------|--------|------------------|--------|-----|---------------|
-| 1 | Login and open a product page that allows reviews | Review section is visible | OK | https://grocerymate.masterschool.com/product/XYZ | |
-| 2 | Click “Add Review” | Review modal appears | OK |  | |
-| 3 | Select a rating (e.g., 5 stars) and write a short comment | Form accepts valid input | OK |  | |
-| 4 | Click “Submit” | Review appears immediately (rating + comment) | NOK |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1 |
+| 1 | Open a product page that allows review (after purchase) | Review section is visible | OK |  |  |
+| 2 | (BVA) Select rating = 1 and submit | Rating is submitted successfully | OK |  |  |
+| 3 | (BVA) Select rating = 5 and submit | Rating is submitted successfully | OK |  |  |
+| 4 | (EP) Try rating = 0 | Error message “Invalid rating value.” | OK |  |  |
+| 5 | (EP) Try rating = 6 | Error message “Invalid rating value.” | OK |  |  |
+| 6 | (EG) Submit without selecting stars | Error message “Rating is required.” | OK |  |  |
+| 7 | (EG) Enter invalid characters “five” in rating | Error message “Invalid rating format.” | OK |  |  |
+| 8 | (Use Case) Submit rating + comment | Rating and comment saved and displayed under product | NOK (comment missing) |  |  |
+| 9 | (Use Case) Submit new rating to check average update | Average rating recalculated and displayed correctly |  |  |  |
 
 ---
 
-# Scenario 2: Age Verification – Access Alcohol Category
-
-As a user of MarketMate, I must confirm I am 18+ before accessing alcoholic products.
+# Feature 2: Age Verification for Alcoholic Products – Test Execution
 
 | Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
 |------|--------|------------------|--------|-----|---------------|
-| 1 | Navigate to Alcohol category | Age verification modal appears | OK | https://grocerymate.masterschool.com/alcohol | |
-| 2 | Enter a birthdate that makes the user 18+ (e.g., 20-12-1988) and confirm | User can access alcoholic products | OK |  | |
-| 3 | Clear cookies / reset and enter a birthdate that makes the user under 18 (e.g., 20-12-2014) | User is blocked from alcohol products | OK |  | |
+| 1 | Navigate to Alcohol category | Age verification modal appears | OK |  |  |
+| 2 | (BVA) Enter age = 18 and confirm | Access allowed | OK |  |  |
+| 3 | (BVA) Enter age = 17 and confirm | Access denied, message “You must be 18+.” | OK |  |  |
+| 4 | (EP) Enter age = 15 and confirm | Access denied | OK |  |  |
+| 5 | (EP) Enter age = 25 and confirm | Access granted | OK |  |  |
+| 6 | (EG) Leave age field empty and confirm | Error message “Age is required.” | NOK (same underage msg) |  |  |
+| 7 | (EG) Enter “abc” and confirm | Error message “Invalid age format.” | NOK (same underage msg) |  |  |
+| 8 | (Use Case) Navigate to Alcohol category again | Age modal appears before accessing Alcohol section | OK |  |  |
+| 9 | (Use Case) Enter age = 16 | User remains blocked from Alcohol category | OK |  |  |
 
 ---
 
-# Scenario 3: Shipping Cost – Free Shipping Threshold (20€)
-
-As a user of MarketMate, shipping should be free for orders ≥ 20€, and a fee should apply for orders < 20€.
+# Feature 3: Shipping Cost Changes – Test Execution
 
 | Step# | Action | Expected outcome | OK/NOK | URL | Link to issue |
 |------|--------|------------------|--------|-----|---------------|
-| 1 | Add items to cart until total is 19.99€ | Shipping fee is applied | OK | https://grocerymate.masterschool.com/cart | |
-| 2 | Add one more item so total becomes 20.00€ or more | Shipping becomes free | OK |  | |
-| 3 | Remove items so total drops below 20€ again | Shipping fee should be applied again | NOK |  |  |
+| 1 | (BVA) Set cart total = 20.00€ | Free shipping is applied | OK |  |  |
+| 2 | (BVA) Set cart total = 19.99€ | Shipping fee is added | OK |  |  |
+| 3 | (EP) Set cart total = 35€ | Free shipping is applied | OK |  |  |
+| 4 | (EP) Set cart total = 10€ | Shipping fee is added | OK |  |  |
+| 5 | (Use Case) Start with total ≥ 20€, then remove item so total < 20€ | Shipping fee is added automatically | NOK (fee does not return) |  |  |
+| 6 | (Use Case) Start with total < 20€, then add items so total ≥ 20€ | Free shipping is applied | OK |  |  |
