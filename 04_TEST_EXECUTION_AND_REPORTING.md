@@ -1,4 +1,4 @@
-# TEST EXECUTION & REPORTING – Market Mate Webshop
+# TEST REPORTING – Market Mate Webshop
 
 ---
 
