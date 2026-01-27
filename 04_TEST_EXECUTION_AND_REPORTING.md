@@ -4,80 +4,67 @@
 
 ## FEATURE 1 – PRODUCT RATING SYSTEM
 
-### Test Case 1: Add rating and comment after purchase (Happy Path)
+### Test Case 1: Comment not displayed on first submission
 
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|---------------|
-| 1 | Login to the webshop | User is logged in |  | PASS | https://grocerymate.masterschool.com |  |
-| 2 | Navigate to products page | Products page opens |  | PASS |  |  |
-| 3 | Select a product | Product page opens |  | PASS |  |  |
-| 4 | Add product to cart | Product added to cart |  | PASS |  |  |
-| 5 | Complete checkout | Order completed |  | PASS |  |  |
-| 6 | Open product page again | Product page opens |  | PASS |  |  |
-| 7 | Click Add Review | Review form opens |  | PASS |  |  |
-| 8 | Select rating (4 stars) | Rating selected |  | PASS |  |  |
-| 9 | Enter comment | Comment accepted |  | PASS |  |  |
-|10 | Click Submit | Rating and comment displayed | Comment not displayed | FAIL |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1 |
+| Step# | Action | Expected Result | Actual Result | Status | URL | Link to Issue |
+|------:|--------|-----------------|--------------|--------|-----|---------------|
+| 1 | Login to the webshop | User is logged in | Logged in | PASS | https://grocerymate.masterschool.com | |
+| 2 | Navigate to products page | Products page opens | Opened | PASS | | |
+| 3 | Select a purchased product | Product page opens | Opened | PASS | | |
+| 4 | Click Add Review | Review form opens | Opened | PASS | | |
+| 5 | Select rating (4 stars) | Rating selected | Selected | PASS | | |
+| 6 | Enter comment | Comment accepted | Accepted | PASS | | |
+| 7 | Click Submit | Rating and comment displayed | Comment not displayed | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1 |
 
 ---
 
-### Test Case 2: Comment not displayed on first submission (Bug Case)
+### Test Case 2: Comment disappears after page refresh
 
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|---------------|
-| 1 | Login to the webshop | User is logged in |  | PASS | https://grocerymate.masterschool.com |  |
-| 2 | Open purchased product page | Product page opens |  | PASS |  |  |
-| 3 | Click Add Review | Review form opens |  | PASS |  |  |
-| 4 | Select rating | Rating selected |  | PASS |  |  |
-| 5 | Enter comment | Comment accepted |  | PASS |  |  |
-| 6 | Click Submit | Rating and comment displayed | Only rating displayed | FAIL |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1 |
-| 7 | Refresh page | Comment still visible | Comment missing | FAIL |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1 |
+| Step# | Action | Expected Result | Actual Result | Status | URL | Link to Issue |
+|------:|--------|-----------------|--------------|--------|-----|---------------|
+| 1 | Login to the webshop | User is logged in | Logged in | PASS | https://grocerymate.masterschool.com | |
+| 2 | Open product with submitted rating | Product page opens | Opened | PASS | | |
+| 3 | Verify existing rating | Rating visible | Visible | PASS | | |
+| 4 | Refresh the page | Rating and comment remain visible | Comment missing | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/1 |
 
 ---
 
 ## FEATURE 2 – AGE VERIFICATION
 
-### Test Case 3: Valid age (18 or above)
+### Test Case 3: Same error message shown for all invalid age inputs
 
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|---------------|
-| 1 | Open webshop home page | Home page opens |  | PASS | https://grocerymate.masterschool.com |  |
-| 2 | Navigate to Alcohol category | Age popup appears |  | PASS |  |  |
-| 3 | Enter age 18 or above | Age accepted |  | PASS |  |  |
-| 4 | Confirm age | Access granted | Access granted | PASS |  |  |
+| Step# | Action | Expected Result | Actual Result | Status | URL | Link to Issue |
+|------:|--------|-----------------|--------------|--------|-----|---------------|
+| 1 | Navigate to Alcohol category | Age popup appears | Appeared | PASS | https://grocerymate.masterschool.com/category/alcohol | |
+| 2 | Leave age field empty | Specific validation message | Generic underage message | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/4 |
+| 3 | Enter invalid text (abc) | Invalid format message | Same generic message | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/4 |
 
 ---
 
-### Test Case 4: Underage or invalid age input
+### Test Case 4: Underage user blocked from non-alcohol categories
 
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|---------------|
-| 1 | Navigate to Alcohol category | Age popup appears |  | PASS | https://grocerymate.masterschool.com/category/alcohol |  |
-| 2 | Enter age below 18 | Input processed |  | PASS |  |  |
-| 3 | Confirm age | Access denied | Access denied | PASS |  |  |
-| 4 | Leave age empty or enter text | Proper error message | Same error message shown | FAIL |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/4 |
+| Step# | Action | Expected Result | Actual Result | Status | URL | Link to Issue |
+|------:|--------|-----------------|--------------|--------|-----|---------------|
+| 1 | Enter age below 18 | Access restricted to alcohol only | Age accepted | FAIL | https://grocerymate.masterschool.com | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/5 |
+| 2 | Navigate to normal products | Products visible | Products blocked | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/5 |
 
 ---
 
 ## FEATURE 3 – SHIPPING COST
 
-### Test Case 5: Free shipping applied when total ≥ 20€
+### Test Case 5: Shipping fee does not return after cart total drops below threshold
 
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|---------------|
-| 1 | Open webshop home page | Home page opens |  | PASS | https://grocerymate.masterschool.com |  |
-| 2 | Add product to cart | Product added |  | PASS |  |  |
-| 3 | Go to cart page | Cart page opens |  | PASS |  |  |
-| 4 | Verify total ≥ 20€ | Total correct |  | PASS |  |  |
-| 5 | Check shipping cost | Free shipping applied | Free shipping applied | PASS |  |  |
+| Step# | Action | Expected Result | Actual Result | Status | URL | Link to Issue |
+|------:|--------|-----------------|--------------|--------|-----|---------------|
+| 1 | Add items until total ≥ 20€ | Free shipping applied | Applied | PASS | https://grocerymate.masterschool.com/cart | |
+| 2 | Remove item from cart | Shipping fee added | Still free | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/3 |
+| 3 | Refresh cart page | Shipping fee persists | Still free | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/3 |
 
 ---
 
-### Test Case 6: Shipping fee does not return when total drops below 20€ (Bug)
+### Test Case 6: Shipping cost not recalculated dynamically
 
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|---------------|
-| 1 | Add items until total ≥ 20€ | Free shipping applied |  | PASS | https://grocerymate.masterschool.com/cart |  |
-| 2 | Remove item from cart | Total < 20€ |  | PASS |  |  |
-| 3 | Check shipping cost | Shipping fee added | Shipping still free | FAIL |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/3 |
-| 4 | Refresh cart page | Shipping fee persists | Shipping still free | FAIL |  | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/3 |
+| Step# | Action | Expected Result | Actual Result | Status | URL | Link to Issue |
+|------:|--------|-----------------|--------------|--------|-----|---------------|
+| 1 | Start with cart total below 20€ | Shipping fee applied | Applied | PASS | https://grocerymate.masterschool.com/cart | |
+| 2 | Add item to reach ≥ 20€ | Shipping becomes free | Still charged | FAIL | | https://github.com/abdelwahahb-hamadi/masterschool-QA-homeworks/issues/3 |
