@@ -1,92 +1,74 @@
-# TEST REPORTING – Market Mate Webshop
+## FEATURE 1 – PRODUCT RATING SYSTEM
 
----
+### Test Case 1: Add rating and comment after purchase (Happy Path)
 
-## Feature 1: Product Rating System
-
-### Test Case 1: Submit rating with minimum allowed value (1 star)
 | Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
 |------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
 | 1 | Login to the webshop | User is logged in |  |  |  |  |  |
-| 2 | Open a purchased product page | Product page opens |  |  |  |  |  |
-| 3 | Click **Add Review** | Review form/modal opens |  |  |  |  |  |
-| 4 | Select **1 star** | 1 star is selected |  |  |  |  |  |
-| 5 | Click **Submit** | Rating is saved and displayed | Rating saved and displayed | PASS |  |  |  |
+| 2 | Navigate to products page | Products page opens |  |  |  |  |  |
+| 3 | Select a product | Product page opens |  |  |  |  |  |
+| 4 | Add product to cart | Product added to cart |  |  |  |  |  |
+| 5 | Complete checkout | Order completed |  |  |  |  |  |
+| 6 | Open product page again | Product page opens |  |  |  |  |  |
+| 7 | Click Add Review | Review form opens |  |  |  |  |  |
+| 8 | Select rating (4 stars) | Rating selected |  |  |  |  |  |
+| 9 | Enter comment | Comment accepted |  |  |  |  |  |
+|10 | Click Submit | Rating and comment displayed | Comment not displayed | FAIL |  |  |  |
 
----
 
-### Test Case 2: Submit rating without selecting stars (rating required)
+### Test Case 2: Comment not displayed on first submission (Bug Case)
+
 | Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
 |------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
 | 1 | Login to the webshop | User is logged in |  |  |  |  |  |
-| 2 | Open a purchased product page | Product page opens |  |  |  |  |  |
-| 3 | Click **Add Review** | Review form/modal opens |  |  |  |  |  |
-| 4 | Leave stars empty and click **Submit** | Validation message appears (rating required) | Shows “Invalid” / rating required | PASS |  |  |  |
+| 2 | Open purchased product page | Product page opens |  |  |  |  |  |
+| 3 | Click Add Review | Review form opens |  |  |  |  |  |
+| 4 | Select rating | Rating selected |  |  |  |  |  |
+| 5 | Enter comment | Comment accepted |  |  |  |  |  |
+| 6 | Click Submit | Rating and comment displayed | Only rating displayed | FAIL |  |  |  |
+| 7 | Refresh page | Comment still visible | Comment missing | FAIL |  |  |  |
 
----
 
-### Test Case 3: Submit rating + comment (comment should appear immediately)
+## FEATURE 2 – AGE VERIFICATION
+
+### Test Case 3: Valid age (18 or above)
+
 | Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
 |------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
-| 1 | Login to the webshop | User is logged in |  |  |  |  |  |
-| 2 | Open a purchased product page | Product page opens |  |  |  |  |  |
-| 3 | Click **Add Review** | Review form/modal opens |  |  |  |  |  |
-| 4 | Select stars (e.g., 5) and type a comment | Input accepted |  |  |  |  |  |
-| 5 | Click **Submit** | Stars + comment appear under the product | Only stars appear, comment is missing | FAIL |  |  |  |
+| 1 | Open webshop home page | Home page opens |  |  |  |  |  |
+| 2 | Navigate to Alcohol category | Age popup appears |  |  |  |  |  |
+| 3 | Enter age 18 or above | Age accepted |  |  |  |  |  |
+| 4 | Confirm age | Access granted | Access granted | PASS |  |  |  |
 
----
 
-## Feature 2: Age Verification for Alcoholic Products
+### Test Case 4: Underage or invalid age input
 
-### Test Case 1: Enter age exactly 18 (access allowed)
 | Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
 |------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
-| 1 | Clear cookies/session to reset age verification | Age modal appears again when needed |  |  |  |  |  |
-| 2 | Navigate to Alcohol category | Age verification modal appears |  |  |  |  |  |
-| 3 | Enter DOB that makes user **exactly 18** | Input accepted |  |  |  |  |  |
-| 4 | Confirm / submit age | Alcohol category becomes accessible | Access allowed | PASS |  |  |  |
+| 1 | Navigate to Alcohol category | Age popup appears |  |  |  |  |  |
+| 2 | Enter age below 18 | Input processed |  |  |  |  |  |
+| 3 | Confirm age | Access denied | Access denied | PASS |  |  |  |
+| 4 | Leave age empty or enter text | Proper error message | Same error message shown | FAIL |  |  |  |
 
----
 
-### Test Case 2: Enter age just below 18 (17) (access denied)
+## FEATURE 3 – SHIPPING COST
+
+### Test Case 5: Free shipping applied when total ≥ 20€
+
 | Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
 |------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
-| 1 | Clear cookies/session to reset age verification | Age modal appears again |  |  |  |  |  |
-| 2 | Navigate to Alcohol category | Age verification modal appears |  |  |  |  |  |
-| 3 | Enter DOB that makes user **17** | Input accepted |  |  |  |  |  |
-| 4 | Confirm / submit age | Access denied (blocked from alcohol products) | Access denied / “No product found” | PASS |  |  |  |
+| 1 | Open webshop home page | Home page opens |  |  |  |  |  |
+| 2 | Add product to cart | Product added |  |  |  |  |  |
+| 3 | Go to cart page | Cart page opens |  |  |  |  |  |
+| 4 | Verify total ≥ 20€ | Total correct |  |  |  |  |  |
+| 5 | Check shipping cost | Free shipping applied | Free shipping applied | PASS |  |  |  |
 
----
 
-### Test Case 3: Invalid age input (empty or text) should show validation message
+### Test Case 6: Shipping fee does not return when total drops below 20€ (Bug)
+
 | Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
 |------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
-| 1 | Clear cookies/session to reset age verification | Age modal appears again |  |  |  |  |  |
-| 2 | Navigate to Alcohol category | Age verification modal appears |  |  |  |  |  |
-| 3 | Leave DOB empty OR enter text like “abc” | Validation error specific to invalid input | Same generic message shown for all cases | FAIL |  |  |  |
-
----
-
-## Feature 3: Shipping Cost Changes (Threshold = 20€)
-
-### Test Case 1: Cart total exactly 20.00€ (free shipping)
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
-| 1 | Add items until total becomes **20.00€** | Total updates correctly |  |  |  |  |  |
-| 2 | Open cart/checkout summary | Shipping becomes free | Shipping is free | PASS |  |  |  |
-
----
-
-### Test Case 2: Cart total just below 20€ (19.99€) (shipping fee applied)
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
-| 1 | Add items until total becomes **19.99€** | Total updates correctly |  |  |  |  |  |
-| 2 | Open cart/checkout summary | Shipping fee is applied | Shipping fee applied | PASS |  |  |  |
-
----
-
-### Test Case 3: Remove items (from >=20€ to <20€) should re-apply shipping fee
-| Step# | Action | Expected Result | Actual Result | Status (PASS/FAIL) | URL | Evidence | Link to Issue |
-|------:|--------|-----------------|--------------|--------------------|-----|----------|--------------|
-| 1 | Add items until total becomes **>= 20€** | Free shipping is applied |  |  |  |  |  |
-| 2 | Remove items until total becomes **< 20€** | Shipping fee should appear again | Shipping fee does NOT return | FAIL |  |  |  |
+| 1 | Add items until total ≥ 20€ | Free shipping applied |  |  |  |  |  |
+| 2 | Remove item from cart | Total < 20€ |  |  |  |  |  |
+| 3 | Check shipping cost | Shipping fee added | Shipping still free | FAIL |  |  |  |
+| 4 | Refresh cart page | Shipping fee persists | Shipping still free | FAIL |  |  |  |
